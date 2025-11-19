@@ -2,6 +2,8 @@ package CardosoLavacao.Controller;
 
 import CardosoLavacao.Service.ClienteService;
 import CardosoLavacao.dto.cliente.ClienteDTO;
+import CardosoLavacao.dto.cliente.ClienteRequestDTO;
+import CardosoLavacao.model.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,20 +19,20 @@ public class ClienteController {
     private ClienteService clienteService;
 
     @PostMapping(value = "/criar-usuario")
-    public ResponseEntity<ClienteDTO> criarCliente (@RequestBody ClienteDTO clienteDTO){
-        ClienteDTO clienteDTOcriado = clienteService.criarCliente(clienteDTO);
-        return ResponseEntity.ok(clienteDTOcriado);
+    public ResponseEntity<Cliente> criarCliente (@RequestBody ClienteRequestDTO clienteRequestDTO){
+        Cliente clienteCriado = clienteService.criarCliente(clienteRequestDTO);
+        return ResponseEntity.ok(clienteCriado);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<ClienteDTO> atualizarCliente (@PathVariable UUID id, @RequestBody ClienteDTO clienteDTO){
-        ClienteDTO clienteDTOatualizado = clienteService.atualizarCliente(id,clienteDTO);
-        return ResponseEntity.ok(clienteDTOatualizado);
+    public ResponseEntity<Cliente> atualizarCliente (@PathVariable UUID id, @RequestBody ClienteRequestDTO clienteRequestDTO){
+        Cliente clienteAtualizado = clienteService.atualizarCliente(id,clienteRequestDTO);
+        return ResponseEntity.ok(clienteAtualizado);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<ClienteDTO> findClienteById (@PathVariable UUID id){
-        ClienteDTO clienteDTO = clienteService.getClienteByID(id);
+    public ResponseEntity<Cliente> findClienteById (@PathVariable UUID id){
+        Cliente clienteDTO = clienteService.getClienteByID(id);
         return ResponseEntity.ok(clienteDTO);
     }
 

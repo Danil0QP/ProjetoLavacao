@@ -1,7 +1,6 @@
 package CardosoLavacao.Service;
 
 import CardosoLavacao.Repository.ClienteRepository;
-import CardosoLavacao.dto.cliente.ClienteDTO;
 import CardosoLavacao.dto.cliente.ClienteRequestDTO;
 import CardosoLavacao.model.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,7 @@ public class ClienteService {
     }
 
     public Cliente getClienteByID(UUID id){
-        return clienteRepository.FindClienteById(id).orElseThrow
+        return clienteRepository.findClienteById(id).orElseThrow
                 (() -> new RuntimeException("Cliente não encontrado!"));
     }
 
