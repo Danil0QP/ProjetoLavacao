@@ -1,11 +1,13 @@
 package CardosoLavacao.Controller;
 
 import CardosoLavacao.Service.ClienteService;
-import CardosoLavacao.dto.ClienteDTO;
+import CardosoLavacao.dto.cliente.ClienteDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/cliente")
@@ -16,19 +18,19 @@ public class ClienteController {
 
     @PostMapping(value = "/criar-usuario")
     public ResponseEntity<ClienteDTO> criarCliente (@RequestBody ClienteDTO clienteDTO){
-        ClienteDTO clienteDTOcriado = clienteService.criarUsuario(clienteDTO);
+        ClienteDTO clienteDTOcriado = clienteService.criarCliente(clienteDTO);
         return ResponseEntity.ok(clienteDTOcriado);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<ClienteDTO> atualizarCliente (@PathVariable Long id, @RequestBody ClienteDTO clienteDTO){
+    public ResponseEntity<ClienteDTO> atualizarCliente (@PathVariable UUID id, @RequestBody ClienteDTO clienteDTO){
         ClienteDTO clienteDTOatualizado = clienteService.atualizarCliente(id,clienteDTO);
         return ResponseEntity.ok(clienteDTOatualizado);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<ClienteDTO> findClienteById (@PathVariable Long id){
-        ClienteDTO clienteDTO = clienteService.findClienteById(id);
+    public ResponseEntity<ClienteDTO> findClienteById (@PathVariable UUID id){
+        ClienteDTO clienteDTO = clienteService.getClienteByID(id);
         return ResponseEntity.ok(clienteDTO);
     }
 

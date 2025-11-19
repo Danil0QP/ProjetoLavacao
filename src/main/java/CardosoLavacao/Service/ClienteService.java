@@ -1,24 +1,49 @@
 package CardosoLavacao.Service;
 
-import CardosoLavacao.dto.ClienteDTO;
-import org.springframework.http.ResponseEntity;
+import CardosoLavacao.Repository.ClienteRepository;
+import CardosoLavacao.dto.cliente.ClienteDTO;
+import CardosoLavacao.dto.cliente.ClienteRequestDTO;
+import CardosoLavacao.model.Cliente;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 public class ClienteService {
 
-    public ClienteDTO criarUsuario(ClienteDTO clienteDTO) {
-        return clienteDTO;
+    @Autowired
+    private ClienteRepository clienteRepository;
+
+    public Cliente criarCliente(ClienteRequestDTO data) {
+        //Criando um novo cadastro de cliente.
+        Cliente newCliente = new Cliente();
+        //Preenchimento dos dados dos cliente.
+        newCliente.setNome(data.nome());
+        newCliente.setTelefone(data.telefone());
+        newCliente.setCpf(data.cpf());
+        clienteRepository.save(newCliente);
+        return newCliente;
     }
 
-    public ClienteDTO atualizarCliente(Long id, ClienteDTO clienteDTO) {
-        return clienteDTO;
+    public Cliente getClienteByID(UUID id){
+        return clienteRepository.FindClienteById(id).orElseThrow
+                (() -> new RuntimeException("Cliente não encontrado!"));
     }
 
-    public ClienteDTO findClienteById(Long id) {
-        return null;
+    public Cliente atualizarCliente(UUID id, ClienteRequestDTO clienteRequestDTO) {
+        Cliente atualizaCliente = getClienteByID(id);
+        atualizaCliente.setNome(clienteRequestDTO.nome());
+        atualizaCliente.setTelefone(clienteRequestDTO.telefone());
+        atualizaCliente.setCpf(clienteRequestDTO.cpf());
+
+        return clienteRepository.save(atualizaCliente);
     }
 
-    public void apagarCliente(Long id) {
+    public void apagarCliente(UUID id) {
+        Cliente cliente = getClienteByID(id);
+        clienteRepository.delete(cliente);
     }
+
+
 }

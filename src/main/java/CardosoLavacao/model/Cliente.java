@@ -5,14 +5,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Data;
 
-import java.util.Objects;
+import java.util.UUID;
 
 @Data
 @Entity
 public class Cliente {
 
     @Id
-    private Long id;
+    private UUID id;
     private String nome;
     private Float telefone;
     @Column(unique = true)

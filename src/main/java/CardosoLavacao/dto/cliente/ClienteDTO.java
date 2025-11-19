@@ -1,4 +1,4 @@
-package CardosoLavacao.dto;
+package CardosoLavacao.dto.cliente;
 
 import jakarta.validation.constraints.*;
 import org.hibernate.validator.constraints.br.CPF;
