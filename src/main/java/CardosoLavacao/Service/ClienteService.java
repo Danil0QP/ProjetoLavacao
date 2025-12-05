@@ -1,5 +1,6 @@
 package CardosoLavacao.Service;
 
+import CardosoLavacao.Exceptions.Cliente.ClienteException;
 import CardosoLavacao.Repository.ClienteRepository;
 import CardosoLavacao.dto.cliente.ClienteRequestDTO;
 import CardosoLavacao.model.Cliente;
@@ -15,14 +16,17 @@ public class ClienteService {
     private ClienteRepository clienteRepository;
 
     public Cliente criarCliente(ClienteRequestDTO data) {
+        //Validação para o cadastro de CPF
+        clienteRepository.findClienteByCpf(data.cpf()).ifPresent(c ->{
+            throw new ClienteException("CPF já utilizado!");
+        });
         //Criando um novo cadastro de cliente.
         Cliente newCliente = new Cliente();
         //Preenchimento dos dados dos cliente.
         newCliente.setNome(data.nome());
         newCliente.setTelefone(data.telefone());
         newCliente.setCpf(data.cpf());
-        clienteRepository.save(newCliente);
-        return newCliente;
+        return clienteRepository.save(newCliente);
     }
 
     public Cliente getClienteByID(UUID id){

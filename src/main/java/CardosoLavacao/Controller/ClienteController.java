@@ -1,8 +1,8 @@
 package CardosoLavacao.Controller;
 
 import CardosoLavacao.Service.ClienteService;
-import CardosoLavacao.dto.cliente.ClienteDTO;
 import CardosoLavacao.dto.cliente.ClienteRequestDTO;
+import CardosoLavacao.dto.cliente.ClienteResponseDTO;
 import CardosoLavacao.model.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +18,10 @@ public class ClienteController {
     @Autowired
     private ClienteService clienteService;
 
-    @PostMapping(value = "/criar-usuario")
-    public ResponseEntity<Cliente> criarCliente (@RequestBody ClienteRequestDTO clienteRequestDTO){
+    @PostMapping(value = "/criar-cliente")
+    public ResponseEntity<ClienteResponseDTO> criarCliente (@RequestBody ClienteRequestDTO clienteRequestDTO){
         Cliente clienteCriado = clienteService.criarCliente(clienteRequestDTO);
-        return ResponseEntity.ok(clienteCriado);
+        return ResponseEntity.ok(new ClienteResponseDTO(clienteCriado));
     }
 
     @PutMapping(value = "/{id}")
@@ -37,8 +37,13 @@ public class ClienteController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> apagarCliente (@PathVariable Long id){
+    public ResponseEntity<Void> apagarCliente (@PathVariable("id") UUID id){
         clienteService.apagarCliente(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/O")
+    public String home(){
+        return "Estou Ok";
     }
 }

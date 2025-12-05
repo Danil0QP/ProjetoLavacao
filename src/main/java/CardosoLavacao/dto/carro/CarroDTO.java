@@ -1,4 +1,4 @@
-package CardosoLavacao.dto;
+package CardosoLavacao.dto.carro;
 
 import jakarta.validation.constraints.*;
 import lombok.Data;
@@ -9,7 +9,7 @@ public class CarroDTO {
     private Long id;
 
     @NotBlank(message = "Nome do carro é obrigatório!") //Validação para se o nome do carro estiver em branco.
-    @Size(min = 3, max = 100, message = "Nome do carro não atende o tamanho permitido.") //Validação para tamanho do nome do carro, não pode ser menor que 3 e nem maior que 100.
+    @Size(min = 2, max = 100, message = "Nome do carro não atende o tamanho permitido.") //Validação para tamanho do nome do carro, não pode ser menor que 3 e nem maior que 100.
     private String nome;
 
     @NotBlank(message = "Marca do carro obrigatória!")

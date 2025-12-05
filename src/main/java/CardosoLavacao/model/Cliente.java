@@ -1,8 +1,6 @@
 package CardosoLavacao.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.UUID;
@@ -12,9 +10,10 @@ import java.util.UUID;
 public class Cliente {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String nome;
-    private Float telefone;
+    private String telefone;
     @Column(unique = true)
     private String cpf;
 

@@ -1,4 +1,4 @@
-package CardosoLavacao.dto;
+package CardosoLavacao.dto.servico;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

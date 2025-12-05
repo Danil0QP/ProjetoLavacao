@@ -1,4 +1,4 @@
-package CardosoLavacao.dto;
+package CardosoLavacao.dto.endereco;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
