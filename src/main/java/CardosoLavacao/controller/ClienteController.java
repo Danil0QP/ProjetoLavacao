@@ -1,6 +1,6 @@
-package CardosoLavacao.Controller;
+package CardosoLavacao.controller;
 
-import CardosoLavacao.Service.ClienteService;
+import CardosoLavacao.service.ClienteService;
 import CardosoLavacao.dto.cliente.ClienteRequestDTO;
 import CardosoLavacao.dto.cliente.ClienteResponseDTO;
 import CardosoLavacao.model.Cliente;
@@ -32,7 +32,7 @@ public class ClienteController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Cliente> findClienteById (@PathVariable UUID id){
-        Cliente clienteDTO = clienteService.getClienteByID(id);
+        Cliente clienteDTO = clienteService.getClienteById(id);
         return ResponseEntity.ok(clienteDTO);
     }
 
@@ -40,10 +40,5 @@ public class ClienteController {
     public ResponseEntity<Void> apagarCliente (@PathVariable("id") UUID id){
         clienteService.apagarCliente(id);
         return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping("/O")
-    public String home(){
-        return "Estou Ok";
     }
 }

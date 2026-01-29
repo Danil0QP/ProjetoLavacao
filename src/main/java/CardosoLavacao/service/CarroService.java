@@ -1,6 +1,6 @@
-package CardosoLavacao.Service;
+package CardosoLavacao.service;
 
-import CardosoLavacao.Repository.CarroRepository;
+import CardosoLavacao.repository.CarroRepository;
 import CardosoLavacao.dto.carro.CarroRequestDTO;
 import CardosoLavacao.model.Carro;
 import org.springframework.beans.factory.annotation.Autowired;

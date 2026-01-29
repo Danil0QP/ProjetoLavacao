@@ -1,4 +1,4 @@
-package CardosoLavacao.Repository;
+package CardosoLavacao.repository;
 
 import CardosoLavacao.model.Carro;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,8 +9,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface CarroRepository extends JpaRepository<Carro, Long> {
+public interface CarroRepository extends JpaRepository<Carro, UUID> {
 
     @Query("SELECT c FROM Carro c WHERE c.id = :id")
-    Optional<Carro> findCarroByID (UUID id);
+    Optional<Carro> findCarroById (UUID id);
 }

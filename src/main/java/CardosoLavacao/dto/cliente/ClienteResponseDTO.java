@@ -8,11 +8,15 @@ public record ClienteResponseDTO(
         UUID id,
         String nome,
         String telefone,
-        String cpf
-
+        String cpf,
+        Boolean admin
 ) {
 
     public ClienteResponseDTO(Cliente cliente){
-        this(cliente.getId(),cliente.getNome(),cliente.getTelefone(),cliente.getCpf());
+        this(cliente.getId(),
+                cliente.getNome(),
+                cliente.getTelefone(),
+                cliente.getCpf(),
+                cliente.getAdmin());
     }
 }

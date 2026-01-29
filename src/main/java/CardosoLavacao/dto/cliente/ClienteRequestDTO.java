@@ -2,5 +2,10 @@ package CardosoLavacao.dto.cliente;
 
 public record ClienteRequestDTO(String nome,
                                 String telefone,
-                                String cpf) {
+                                String cpf,
+                                Boolean admin,
+                                String nomeCarro,
+                                String marca,
+                                String placa,
+                                Boolean mercosul) {
 }

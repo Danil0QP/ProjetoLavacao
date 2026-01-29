@@ -3,6 +3,8 @@ package CardosoLavacao.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -16,5 +18,10 @@ public class Cliente {
     private String telefone;
     @Column(unique = true)
     private String cpf;
+    private Boolean admin;
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    private List<Carro> carros = new ArrayList<>();
+
 
 }

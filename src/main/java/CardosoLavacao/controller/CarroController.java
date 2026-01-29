@@ -1,11 +1,9 @@
-package CardosoLavacao.Controller;
+package CardosoLavacao.controller;
 
-import CardosoLavacao.Repository.CarroRepository;
-import CardosoLavacao.Service.CarroService;
+import CardosoLavacao.service.CarroService;
 import CardosoLavacao.dto.carro.CarroRequestDTO;
 import CardosoLavacao.dto.carro.CarroResponseDTO;
 import CardosoLavacao.model.Carro;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

@@ -1,4 +1,4 @@
-package CardosoLavacao.Controller;
+package CardosoLavacao.controller;
 
 public class EnderecoController {
 }

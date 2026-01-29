@@ -1,7 +1,7 @@
-package CardosoLavacao.Service;
+package CardosoLavacao.service;
 
 import CardosoLavacao.Exceptions.Cliente.ClienteException;
-import CardosoLavacao.Repository.ClienteRepository;
+import CardosoLavacao.repository.ClienteRepository;
 import CardosoLavacao.dto.cliente.ClienteRequestDTO;
 import CardosoLavacao.model.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,25 +26,27 @@ public class ClienteService {
         newCliente.setNome(data.nome());
         newCliente.setTelefone(data.telefone());
         newCliente.setCpf(data.cpf());
+        newCliente.setAdmin(data.admin());
         return clienteRepository.save(newCliente);
     }
 
-    public Cliente getClienteByID(UUID id){
+    public Cliente getClienteById(UUID id){
         return clienteRepository.findClienteById(id).orElseThrow
                 (() -> new RuntimeException("Cliente não encontrado!"));
     }
 
     public Cliente atualizarCliente(UUID id, ClienteRequestDTO clienteRequestDTO) {
-        Cliente atualizaCliente = getClienteByID(id);
+        Cliente atualizaCliente = getClienteById(id);
         atualizaCliente.setNome(clienteRequestDTO.nome());
         atualizaCliente.setTelefone(clienteRequestDTO.telefone());
         atualizaCliente.setCpf(clienteRequestDTO.cpf());
+        atualizaCliente.setAdmin(clienteRequestDTO.admin());
 
         return clienteRepository.save(atualizaCliente);
     }
 
     public void apagarCliente(UUID id) {
-        Cliente cliente = getClienteByID(id);
+        Cliente cliente = getClienteById(id);
         clienteRepository.delete(cliente);
     }
 
