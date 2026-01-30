@@ -1,6 +1,7 @@
 package CardosoLavacao.service;
 
 import CardosoLavacao.Exceptions.Cliente.ClienteException;
+import CardosoLavacao.model.Agendamento;
 import CardosoLavacao.repository.ClienteRepository;
 import CardosoLavacao.dto.cliente.ClienteRequestDTO;
 import CardosoLavacao.model.Cliente;
@@ -49,6 +50,8 @@ public class ClienteService {
         Cliente cliente = getClienteById(id);
         clienteRepository.delete(cliente);
     }
+
+
 
 
 }

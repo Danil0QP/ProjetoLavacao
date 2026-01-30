@@ -2,10 +2,7 @@ package CardosoLavacao.service;
 
 import CardosoLavacao.dto.agendamento.AgendamentoDTO;
 import CardosoLavacao.dto.agendamento.AgendamentoRequestDTO;
-import CardosoLavacao.model.Agendamento;
-import CardosoLavacao.model.Carro;
-import CardosoLavacao.model.Cliente;
-import CardosoLavacao.model.Servico;
+import CardosoLavacao.model.*;
 import CardosoLavacao.repository.AgendamentoRepository;
 import CardosoLavacao.repository.CarroRepository;
 import CardosoLavacao.repository.ClienteRepository;
@@ -80,4 +77,28 @@ public class AgendamentoService {
         return agendamentoRepository.save(atualizaAgendamento);
     }
 
+    public void apagarAgendamento(UUID id){
+        Agendamento agendamento = buscarAgendamento(id);
+        agendamentoRepository.delete(agendamento);
+    }
+
+    public void cancelarAgendamento(UUID id){
+        Agendamento agendamento = buscarAgendamento(id);
+
+        if (agendamento.getStatusAgendamento() != Status.PENDENTE) {
+            throw new RuntimeException("Só é possível cancelar um agendamento com o status (PENDENTE)");
+        }
+
+        agendamento.setStatusAgendamento(Status.CANCELADO);
+    }
+
+    public void confirmarAgendamento(UUID id){
+        Agendamento agendamento = buscarAgendamento(id);
+
+        if (agendamento.getStatusAgendamento() != Status.PENDENTE) {
+            throw new RuntimeException("Só é possível confirmar um agendamento com o status (PENDENTE)");
+        }
+
+        agendamento.setStatusAgendamento(Status.CONCLUIDO);
+    }
 }

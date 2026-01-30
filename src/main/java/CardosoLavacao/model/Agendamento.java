@@ -24,6 +24,9 @@ public class Agendamento {
     @Enumerated(EnumType.STRING)
     private Pagamento tipoPagamento;
 
+    @Enumerated(EnumType.STRING)
+    private Status statusAgendamento;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_carro", nullable = false)
     private Carro carro;
