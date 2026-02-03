@@ -16,9 +16,6 @@ public class Cliente {
     private UUID id;
     private String nome;
     private String telefone;
-    @Column(unique = true)
-    private String cpf;
-    private Boolean admin;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Carro> carros = new ArrayList<>();
