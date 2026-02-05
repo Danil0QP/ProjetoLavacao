@@ -3,6 +3,9 @@ package CardosoLavacao.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
@@ -41,13 +44,12 @@ public class Usuario implements UserDetails {
                 .toList();
     }
 
-    @Override
-    public String getNomeUsuario(){
-        return cpf;
-    }
+    @Override public String getUsername() {return cpf;}
+    @Override public String getPassword() {return senha;}
 
-    @Override
-    public String getSenha(){
-        return senha;
-    }
+    @Override public boolean isAccountNonExpired(){return true;}
+    @Override public boolean isAccountNonLocked(){return true;}
+    @Override public boolean isCredentialsNonExpired(){return true;}
+    @Override public boolean isEnabled(){return true;}
+
 }
