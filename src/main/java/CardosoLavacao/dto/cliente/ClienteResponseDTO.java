@@ -7,16 +7,12 @@ import java.util.UUID;
 public record ClienteResponseDTO(
         UUID id,
         String nome,
-        String telefone,
-        String cpf,
-        Boolean admin
+        String telefone
 ) {
 
     public ClienteResponseDTO(Cliente cliente){
         this(cliente.getId(),
                 cliente.getNome(),
-                cliente.getTelefone(),
-                cliente.getCpf(),
-                cliente.getAdmin());
+                cliente.getTelefone());
     }
 }

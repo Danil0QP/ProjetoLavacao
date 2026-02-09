@@ -17,7 +17,7 @@ public class CarroService {
     public Carro cadastrarCarro (CarroRequestDTO data){
 
         Carro newCarro = new Carro();
-        newCarro.setNome(data.nome());
+        newCarro.setNomeCarro(data.nome());
         newCarro.setMarca(data.marca());
         newCarro.setPlaca(data.placa());
         newCarro.setMercosul(data.mercosul());
@@ -25,13 +25,13 @@ public class CarroService {
     }
 
     public Carro getCarroByID(UUID id){
-        return carroRepository.findCarroByID(id).orElseThrow
+        return carroRepository.findCarroById(id).orElseThrow
                 (() -> new RuntimeException("Carro não encontrado"));
     }
 
     public Carro atualizarCarro (UUID id, CarroRequestDTO carroRequestDTO) {
         Carro atualizaCarro = getCarroByID(id);
-        atualizaCarro.setNome(carroRequestDTO.nome());
+        atualizaCarro.setNomeCarro(carroRequestDTO.nome());
         atualizaCarro.setMarca(carroRequestDTO.placa());
         atualizaCarro.setMercosul(carroRequestDTO.mercosul());
 

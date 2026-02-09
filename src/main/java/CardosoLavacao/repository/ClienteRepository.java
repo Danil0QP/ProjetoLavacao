@@ -1,6 +1,7 @@
 package CardosoLavacao.repository;
 
 import CardosoLavacao.model.Cliente;
+import CardosoLavacao.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -12,12 +13,9 @@ import java.util.UUID;
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, UUID> {
 
-    @Query("SELECT c FROM Cliente c WHERE c.admin = :admin")
-    Optional<Cliente> findByAdmin(@Param("admin") Boolean admin);
-
     @Query("SELECT c FROM Cliente c WHERE c.id = :id")
     Optional<Cliente> findClienteById (UUID id);
 
-    @Query("SELECT c FROM Cliente c WHERE c.cpf = :cpf")
-    Optional<Cliente> findClienteByCpf (@Param("cpf") String cpf);
+    @Query("SELECT u FROM Usuario u WHERE u.cpf = :cpf")
+    Optional<Usuario> findByCpf (@Param("cpf") String cpf);
 }

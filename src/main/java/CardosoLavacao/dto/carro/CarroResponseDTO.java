@@ -5,12 +5,12 @@ import CardosoLavacao.model.Carro;
 import java.util.UUID;
 
 public record CarroResponseDTO(UUID id,
-                               String nome,
+                               String nomeCarro,
                                String marca,
                                String placa,
                                boolean mercosul) {
 
     public CarroResponseDTO(Carro carro) {
-        this(carro.getId(), carro.getNome(), carro.getMarca(), carro.getPlaca(), carro.isMercosul());
+        this(carro.getId(), carro.getNomeCarro(), carro.getMarca(), carro.getPlaca(), carro.isMercosul());
     }
 }

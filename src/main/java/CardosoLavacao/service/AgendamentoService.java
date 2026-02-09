@@ -32,7 +32,7 @@ public class AgendamentoService {
     //Método para validação onde não permite 2 agendamentos no mesmo horário.
     public void validaHorario(LocalDateTime dataHoraAgendamento){
 
-        if (agendamentoRepository.existsDataHoraAgendamento(dataHoraAgendamento)){
+        if (agendamentoRepository.existsByDataHoraAgendamento(dataHoraAgendamento)){
             throw new RuntimeException("Já existe um agendamento nesse horário!");
         }
     }

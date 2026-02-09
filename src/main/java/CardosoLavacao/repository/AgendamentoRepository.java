@@ -19,5 +19,5 @@ public interface AgendamentoRepository extends JpaRepository<Agendamento, UUID> 
 
     Optional<Agendamento> findAgendamentoById(UUID id);
 
-    boolean existsDataHoraAgendamento(LocalDateTime dataHoraAgendamento);
+    boolean existsByDataHoraAgendamento(LocalDateTime dataHoraAgendamento);
 }
