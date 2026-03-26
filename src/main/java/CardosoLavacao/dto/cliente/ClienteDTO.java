@@ -5,6 +5,8 @@ import org.hibernate.validator.constraints.br.CPF;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 public class ClienteDTO {
 
@@ -17,8 +19,6 @@ public class ClienteDTO {
             message = "O número de telefone deve ter um formato válido!")
     private String telefone;
 
-    @NotBlank(message = "O CPF é obrigatório!")
-    @CPF (message = "CPF informado inválido!")
-    private String cpf;
-
+    @NotBlank(message = "A data de nascimento é obrigatória!")
+    private LocalDateTime dataNascimento;
 }

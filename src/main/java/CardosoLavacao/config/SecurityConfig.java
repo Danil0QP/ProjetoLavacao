@@ -17,8 +17,10 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
+                .cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("cliente/**").permitAll()
                         .requestMatchers("/agendamento").hasRole("ADMIN")
                         .requestMatchers("/{clienteId}/agendamento/**").hasRole("CLIENTE")
                         .anyRequest().authenticated())

@@ -39,7 +39,7 @@ public class AgendamentoController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping
+    @GetMapping(value = "/listaAgendamentos")
     public ResponseEntity<List<Agendamento>> listarTodosAgendamentos(UUID id){
         List<Agendamento> listaTodos = agendamentoService.listarAgendamento(id);
         return ResponseEntity.ok(listaTodos);

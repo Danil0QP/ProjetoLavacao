@@ -1,6 +1,7 @@
 package CardosoLavacao.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,7 +16,6 @@ import java.util.UUID;
 @Table(name = "usuario")
 @Data
 
-//Arrumar GPT
 public class Usuario implements UserDetails {
 
     @Id
@@ -25,9 +25,15 @@ public class Usuario implements UserDetails {
     @Column(unique = true, nullable = false, length = 11)
     private String cpf;
 
-    @Column(nullable = false, length = 11)
+    @JsonIgnore
+    @Column(nullable = false)
     private String senha;
 
+    @OneToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
+
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "usuario_role",
@@ -36,7 +42,6 @@ public class Usuario implements UserDetails {
     )
     private List<Role> roles;
 
-    //Arrumar GPT
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities(){
         return roles.stream()

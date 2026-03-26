@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 @RestController
 @RequestMapping("/cliente")
 @Controller
 public class ClienteController {
     @Autowired
     private ClienteService clienteService;
+
 
     @PostMapping(value = "/criar-cliente")
     public ResponseEntity<ClienteResponseDTO> criarCliente (@RequestBody ClienteRequestDTO clienteRequestDTO){

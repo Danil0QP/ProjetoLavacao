@@ -2,10 +2,14 @@ package CardosoLavacao.service;
 
 import CardosoLavacao.Exceptions.Cliente.ClienteException;
 import CardosoLavacao.model.Agendamento;
+import CardosoLavacao.model.Carro;
+import CardosoLavacao.model.Usuario;
+import CardosoLavacao.repository.CarroRepository;
 import CardosoLavacao.repository.ClienteRepository;
 import CardosoLavacao.dto.cliente.ClienteRequestDTO;
 import CardosoLavacao.model.Cliente;
 import CardosoLavacao.repository.UsuarioRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,16 +24,36 @@ public class ClienteService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    @Autowired
+    private CarroRepository carroRepository;
+
+    @Transactional
     public Cliente criarCliente(ClienteRequestDTO data) {
-        //Validação para o cadastro de CPF
-//        clienteRepository.findUsuarioByCpf(data.cpf()).ifPresent(c ->{
-//            throw new ClienteException("CPF já utilizado!");
-//        });
+
+        //Cria um novo cadastro de usuário
+        Usuario usuario = new Usuario();
+        //Preenche as informações do usuário
+        usuario.setCpf(data.usuario().getCpf());
+        usuario.setSenha(data.usuario().getSenha());
+        usuarioRepository.save(usuario);
+
+        //Cria um novo cadastro de carro
+        Carro carro = new Carro();
+        //Preenche as informações do carro
+        carro.setNomeCarro(data.carro().getNome());
+        carro.setMarca(data.carro().getMarca());
+        carro.setPlaca(data.carro().getPlaca());
+        carroRepository.save(carro);
+
         //Criando um novo cadastro de cliente.
         Cliente newCliente = new Cliente();
         //Preenchimento dos dados dos cliente.
         newCliente.setNome(data.nome());
         newCliente.setTelefone(data.telefone());
+        newCliente.setDataNascimento(data.dataNascimento());
+
+        carro.setCliente(newCliente);
+
         return clienteRepository.save(newCliente);
     }
 
