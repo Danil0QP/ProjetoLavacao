@@ -29,6 +29,10 @@ public class Usuario implements UserDetails {
     @Column(nullable = false)
     private String senha;
 
+    @JsonIgnore
+    @Column(nullable = false, name = "conf_senha")
+    private String confSenha;
+
     @OneToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;

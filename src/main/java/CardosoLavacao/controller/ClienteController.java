@@ -6,15 +6,14 @@ import CardosoLavacao.dto.cliente.ClienteResponseDTO;
 import CardosoLavacao.model.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
-@CrossOrigin(origins = "http://127.0.0.1:5500")
+@CrossOrigin(origins = {"http://127.0.0.1:5500",
+        "http://localhost:5500", "127.0.0.1:5500"})
 @RestController
 @RequestMapping("/cliente")
-@Controller
 public class ClienteController {
     @Autowired
     private ClienteService clienteService;

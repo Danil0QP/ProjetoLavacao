@@ -2,6 +2,7 @@ package CardosoLavacao.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -20,11 +21,13 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("cliente/**").permitAll()
-                        .requestMatchers("/agendamento").hasRole("ADMIN")
-                        .requestMatchers("/{clienteId}/agendamento/**").hasRole("CLIENTE")
-                        .anyRequest().authenticated())
-                .httpBasic(Customizer.withDefaults());
+                        .requestMatchers(HttpMethod.OPTIONS).permitAll()
+                        .requestMatchers(HttpMethod.POST,"/cliente/**").permitAll()
+                        .requestMatchers("/error").permitAll()
+                        .requestMatchers("/cliente/**").permitAll()
+                        .requestMatchers("/agendamento/**").hasAuthority("ADMIN")
+                        .requestMatchers("/cliente/*/agendamento/**").hasAuthority("CLIENTE")
+                        .anyRequest().authenticated());
 
         return http.build();
     }

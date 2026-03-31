@@ -1,11 +1,10 @@
 package CardosoLavacao.dto.cliente;
 
 import jakarta.validation.constraints.*;
-import org.hibernate.validator.constraints.br.CPF;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 public class ClienteDTO {
@@ -19,6 +18,6 @@ public class ClienteDTO {
             message = "O número de telefone deve ter um formato válido!")
     private String telefone;
 
-    @NotBlank(message = "A data de nascimento é obrigatória!")
-    private LocalDateTime dataNascimento;
+    @NotNull(message = "A data de nascimento é obrigatória!")
+    private LocalDate dataNascimento;
 }

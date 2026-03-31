@@ -13,11 +13,19 @@ public class UsuarioDTO {
     @Size(min = 8, max = 50)
     private String senha;
 
+    @NotBlank
+    @Size(min = 8, max = 50)
+    private String confSenha;
+
     public String getCpf() {
         return cpf;
     }
 
     public String getSenha() {
         return senha;
+    }
+
+    public String getConfSenha() {
+        return confSenha;
     }
 }

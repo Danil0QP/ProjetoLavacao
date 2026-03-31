@@ -1,7 +1,6 @@
 package CardosoLavacao.service;
 
 import CardosoLavacao.Exceptions.Cliente.ClienteException;
-import CardosoLavacao.model.Agendamento;
 import CardosoLavacao.model.Carro;
 import CardosoLavacao.model.Usuario;
 import CardosoLavacao.repository.CarroRepository;
@@ -13,6 +12,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Service
@@ -30,19 +30,25 @@ public class ClienteService {
     @Transactional
     public Cliente criarCliente(ClienteRequestDTO data) {
 
+        if(data.senha() == null || !data.senha().equals(data.confSenha())) {
+            throw new ClienteException("Senha e confirmação de senha não conferem!");
+        }
+
         //Cria um novo cadastro de usuário
         Usuario usuario = new Usuario();
         //Preenche as informações do usuário
-        usuario.setCpf(data.usuario().getCpf());
-        usuario.setSenha(data.usuario().getSenha());
+        usuario.setCpf(data.cpf());
+        usuario.setSenha(data.senha());
+        usuario.setConfSenha(data.confSenha());
         usuarioRepository.save(usuario);
 
         //Cria um novo cadastro de carro
         Carro carro = new Carro();
         //Preenche as informações do carro
-        carro.setNomeCarro(data.carro().getNome());
-        carro.setMarca(data.carro().getMarca());
-        carro.setPlaca(data.carro().getPlaca());
+        carro.setNomeCarro(data.nomeCarro());
+        carro.setMarca(data.marca());
+        carro.setPlaca(data.placa());
+        carro.setMercosul(Boolean.TRUE.equals(data.mercosul()));
         carroRepository.save(carro);
 
         //Criando um novo cadastro de cliente.
@@ -53,6 +59,7 @@ public class ClienteService {
         newCliente.setDataNascimento(data.dataNascimento());
 
         carro.setCliente(newCliente);
+        usuario.setCliente(newCliente);
 
         return clienteRepository.save(newCliente);
     }

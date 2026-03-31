@@ -3,7 +3,7 @@ package CardosoLavacao.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -17,7 +17,7 @@ public class Cliente {
     private UUID id;
     private String nome;
     private String telefone;
-    private LocalDateTime dataNascimento;
+    private LocalDate dataNascimento;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Carro> carros = new ArrayList<>();

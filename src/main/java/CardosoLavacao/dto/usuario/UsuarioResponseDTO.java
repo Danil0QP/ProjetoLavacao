@@ -6,11 +6,13 @@ import java.util.UUID;
 
 public record UsuarioResponseDTO(UUID id,
                                  String cpf,
-                                 String senha) {
+                                 String senha,
+                                 String confSenha) {
 
     public UsuarioResponseDTO(Usuario usuario) {
         this(usuario.getId(),
                 usuario.getCpf(),
-                usuario.getSenha());
+                usuario.getSenha(),
+                usuario.getConfSenha());
     }
 }

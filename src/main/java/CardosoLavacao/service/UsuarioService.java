@@ -32,6 +32,7 @@ public class UsuarioService {
        Usuario usuario = new Usuario();
        usuario.setCpf(cpf);
        usuario.setSenha(passwordEncoder.encode(senha));
+       usuario.setConfSenha(passwordEncoder.encode(senha));
        usuario.setRoles(List.of(roleAdmin));
 
        return usuarioRepository.save(usuario);
