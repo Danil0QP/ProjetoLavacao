@@ -25,6 +25,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST,"/cliente/**").permitAll()
                         .requestMatchers("/error").permitAll()
                         .requestMatchers("/cliente/**").permitAll()
+                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/error").permitAll()
                         .requestMatchers("/agendamento/**").hasAuthority("ADMIN")
                         .requestMatchers("/cliente/*/agendamento/**").hasAuthority("CLIENTE")
                         .anyRequest().authenticated());

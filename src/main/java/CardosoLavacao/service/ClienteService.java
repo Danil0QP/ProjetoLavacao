@@ -10,6 +10,7 @@ import CardosoLavacao.model.Cliente;
 import CardosoLavacao.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -27,19 +28,22 @@ public class ClienteService {
     @Autowired
     private CarroRepository carroRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Transactional
     public Cliente criarCliente(ClienteRequestDTO data) {
 
         if(data.senha() == null || !data.senha().equals(data.confSenha())) {
-            throw new ClienteException("Senha e confirmação de senha não conferem!");
+            throw new ClienteException("Senha e confirmação de senha não são iguais!");
         }
 
         //Cria um novo cadastro de usuário
         Usuario usuario = new Usuario();
         //Preenche as informações do usuário
         usuario.setCpf(data.cpf());
-        usuario.setSenha(data.senha());
-        usuario.setConfSenha(data.confSenha());
+        usuario.setSenha(passwordEncoder.encode(data.senha()));
+        usuario.setConfSenha(passwordEncoder.encode(data.confSenha()));
         usuarioRepository.save(usuario);
 
         //Cria um novo cadastro de carro
