@@ -14,6 +14,7 @@ public class Carro {
     private UUID id;
     private String nomeCarro;
     private String marca;
+    @Column(unique = true)
     private String placa;
     private boolean mercosul = true;
 

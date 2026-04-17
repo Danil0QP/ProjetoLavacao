@@ -2,18 +2,20 @@ package CardosoLavacao.service;
 
 import CardosoLavacao.Exceptions.Cliente.ClienteException;
 import CardosoLavacao.model.Carro;
+import CardosoLavacao.model.Role;
 import CardosoLavacao.model.Usuario;
 import CardosoLavacao.repository.CarroRepository;
 import CardosoLavacao.repository.ClienteRepository;
 import CardosoLavacao.dto.cliente.ClienteRequestDTO;
 import CardosoLavacao.model.Cliente;
+import CardosoLavacao.repository.RoleRepository;
 import CardosoLavacao.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -31,6 +33,9 @@ public class ClienteService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
     @Transactional
     public Cliente criarCliente(ClienteRequestDTO data) {
 
@@ -44,6 +49,9 @@ public class ClienteService {
         usuario.setCpf(data.cpf());
         usuario.setSenha(passwordEncoder.encode(data.senha()));
         usuario.setConfSenha(passwordEncoder.encode(data.confSenha()));
+        usuario.setRoles(List.of(
+                getOrCreateRole("Cliente")
+        ));
         usuarioRepository.save(usuario);
 
         //Cria um novo cadastro de carro
@@ -66,6 +74,14 @@ public class ClienteService {
         usuario.setCliente(newCliente);
 
         return clienteRepository.save(newCliente);
+    }
+
+    private Role getOrCreateRole(String nomeRole) {
+        return roleRepository.findByNome(nomeRole).orElseGet(() -> {
+            Role novaRole = new Role();
+            novaRole.setNome(nomeRole);
+            return roleRepository.save(novaRole);
+        });
     }
 
     public Cliente getClienteById(UUID id){

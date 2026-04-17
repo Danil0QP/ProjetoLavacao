@@ -14,8 +14,10 @@ import java.util.UUID;
 @Repository
 public interface AgendamentoRepository extends JpaRepository<Agendamento, UUID> {
 
-    @Query("SELECT a FROM Agendamento a WHERE a.cliente.id = :clienteId ORDER BY a.dataHoraAgendamento ASC")
-    List<Agendamento> findByClienteIdOrderByDataHoraAgendamentoAsc (@Param("clienteId")UUID clienteId);
+    @Query("SELECT a FROM Agendamento a WHERE a.carro.id = :carroId ORDER BY a.dataHoraAgendamento ASC")
+    List<Agendamento> findByCarroIdOrderByDataHoraAgendamentoAsc (@Param("carroId")UUID carroId);
+
+    List<Agendamento> findAllByOrderByDataHoraAgendamentoAsc();
 
     Optional<Agendamento> findAgendamentoById(UUID id);
 

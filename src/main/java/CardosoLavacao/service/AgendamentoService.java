@@ -1,7 +1,7 @@
 package CardosoLavacao.service;
 
-import CardosoLavacao.dto.agendamento.AgendamentoDTO;
 import CardosoLavacao.dto.agendamento.AgendamentoRequestDTO;
+import CardosoLavacao.dto.agendamento.AgendamentoResponseDTO;
 import CardosoLavacao.model.*;
 import CardosoLavacao.repository.AgendamentoRepository;
 import CardosoLavacao.repository.CarroRepository;
@@ -46,20 +46,23 @@ public class AgendamentoService {
         //Preencimento com os dados do agendamento.
         Carro carro = carroRepository.findCarroById(data.carroId())
                 .orElseThrow(() -> new RuntimeException("Carro não encontrado!"));
-        Cliente cliente = clienteRepository.findClienteById(data.clienteId())
-                .orElseThrow(() -> new RuntimeException("Cliente não encontrado!"));
         Servico servico = servicoRepository.findById(data.servicoId())
                 .orElseThrow(() -> new RuntimeException("Serviço não encontrado"));
         newAgendamento.setDataHoraAgendamento(data.dataHoraAgendamento());
-        newAgendamento.setCarro(carro.getId());
-        newAgendamento.setCliente(cliente.getId());
-        newAgendamento.setServico(servico.getId());
+        newAgendamento.setCarro(carro);
+        newAgendamento.setServico(servico);
 
         return agendamentoRepository.save(newAgendamento);
     }
 
-    public List<Agendamento> listarAgendamento(UUID id){
-        return agendamentoRepository.findByClienteIdOrderByDataHoraAgendamentoAsc(id);
+    public List<AgendamentoResponseDTO> listarAgendamento(UUID id){
+        return agendamentoRepository.findByCarroIdOrderByDataHoraAgendamentoAsc(id)
+                .stream().map(AgendamentoResponseDTO::new).toList();
+    }
+
+    public List<AgendamentoResponseDTO> listarTodosAgendamentos(){
+        return agendamentoRepository.findAllByOrderByDataHoraAgendamentoAsc()
+                .stream().map(AgendamentoResponseDTO::new).toList();
     }
 
     public Agendamento buscarAgendamento(UUID id){
@@ -69,10 +72,14 @@ public class AgendamentoService {
 
     public Agendamento atualizarAgendamento(UUID id, AgendamentoRequestDTO agendamentoRequestDTO){
         Agendamento atualizaAgendamento = buscarAgendamento(id);
+        Carro carro = carroRepository.findCarroById(agendamentoRequestDTO.carroId())
+                .orElseThrow(() -> new RuntimeException("Carro não encontrado!"));
+        Servico servico = servicoRepository.findById(agendamentoRequestDTO.servicoId())
+                .orElseThrow(() -> new RuntimeException("Serviço não encontrado!"));
         atualizaAgendamento.setDataHoraAgendamento(agendamentoRequestDTO.dataHoraAgendamento());
-        atualizaAgendamento.setServico(agendamentoRequestDTO.servicoId());
-        atualizaAgendamento.setCarro(agendamentoRequestDTO.carroId());
-        atualizaAgendamento.setCliente(agendamentoRequestDTO.clienteId());
+        atualizaAgendamento.setServico(servico);
+        atualizaAgendamento.setCarro(carro);
+
 
         return agendamentoRepository.save(atualizaAgendamento);
     }

@@ -36,12 +36,16 @@ public class CarroController {
         return ResponseEntity.ok(carroDTO);
     }
 
+    @GetMapping(value="/cliente/{clienteId}/carro/{carroId}")
+    public ResponseEntity<Carro> buscaCarroCliente (@PathVariable UUID clienteId,@PathVariable UUID carroId){
+        Carro carroDTO = carroService.getCarroCliente(clienteId, carroId);
+        return ResponseEntity.ok(carroDTO);
+    }
+
+
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> apagarCarro (@PathVariable("id") UUID id){
         carroService.apagarCarro(id);
         return ResponseEntity.noContent().build();
     }
-
-    @GetMapping(value = "/0")
-    public String home(){return "I'm OK";}
 }

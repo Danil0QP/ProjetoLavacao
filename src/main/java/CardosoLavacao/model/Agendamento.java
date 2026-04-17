@@ -32,19 +32,7 @@ public class Agendamento {
     private Carro carro;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_cliente", nullable = false)
-    private Cliente cliente;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_servico",  nullable = false)
     private Servico servico;
 
-    public void setServico(UUID uuid) {
-    }
-
-    public void setCarro(UUID uuid) {
-    }
-
-    public void setCliente(UUID uuid) {
-    }
 }

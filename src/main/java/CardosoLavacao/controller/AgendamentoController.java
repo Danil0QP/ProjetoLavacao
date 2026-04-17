@@ -1,6 +1,7 @@
 package CardosoLavacao.controller;
 
 import CardosoLavacao.dto.agendamento.AgendamentoRequestDTO;
+import CardosoLavacao.dto.agendamento.AgendamentoResponseDTO;
 import CardosoLavacao.model.Agendamento;
 import CardosoLavacao.service.AgendamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,15 +34,15 @@ public class AgendamentoController {
 
     @PreAuthorize("hasRole('CLIENTE')")
     @GetMapping(value = "/{clienteId}/agendamento")
-    public ResponseEntity<List<Agendamento>> listarAgendamentos(@PathVariable UUID clienteId){
-        List<Agendamento> lista = agendamentoService.listarAgendamento(clienteId);
+    public ResponseEntity<List<AgendamentoResponseDTO>> listarAgendamentos(@PathVariable UUID clienteId){
+        List<AgendamentoResponseDTO> lista = agendamentoService.listarAgendamento(clienteId);
         return  ResponseEntity.ok(lista);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/listaAgendamentos")
-    public ResponseEntity<List<Agendamento>> listarTodosAgendamentos(UUID id){
-        List<Agendamento> listaTodos = agendamentoService.listarAgendamento(id);
+    public ResponseEntity<List<AgendamentoResponseDTO>> listarTodosAgendamentos(UUID id){
+        List<AgendamentoResponseDTO> listaTodos = agendamentoService.listarAgendamento(id);
         return ResponseEntity.ok(listaTodos);
     }
 

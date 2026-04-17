@@ -29,6 +29,11 @@ public class CarroService {
                 (() -> new RuntimeException("Carro não encontrado"));
     }
 
+    public Carro getCarroCliente(UUID clienteId, UUID carroId){
+        return carroRepository.findCarroByIdCliente(carroId, clienteId)
+                .orElseThrow(() -> new RuntimeException("Carro não encontrado para o cliente!"));
+    }
+
     public Carro atualizarCarro (UUID id, CarroRequestDTO carroRequestDTO) {
         Carro atualizaCarro = getCarroByID(id);
         atualizaCarro.setNomeCarro(carroRequestDTO.nome());
