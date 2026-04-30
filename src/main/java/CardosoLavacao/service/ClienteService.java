@@ -21,6 +21,8 @@ import java.util.UUID;
 @Service
 public class ClienteService {
 
+    private static final String ROLE_CLIENTE = "CLIENTE";
+
     @Autowired
     private ClienteRepository clienteRepository;
 
@@ -43,16 +45,12 @@ public class ClienteService {
             throw new ClienteException("Senha e confirmação de senha não são iguais!");
         }
 
-        //Cria um novo cadastro de usuário
-        Usuario usuario = new Usuario();
-        //Preenche as informações do usuário
-        usuario.setCpf(data.cpf());
-        usuario.setSenha(passwordEncoder.encode(data.senha()));
-        usuario.setConfSenha(passwordEncoder.encode(data.confSenha()));
-        usuario.setRoles(List.of(
-                getOrCreateRole("Cliente")
-        ));
-        usuarioRepository.save(usuario);
+        //Criando um novo cadastro de cliente.
+        Cliente newCliente = new Cliente();
+        //Preenchimento dos dados dos cliente.
+        newCliente.setNome(data.nome());
+        newCliente.setTelefone(data.telefone());
+        newCliente.setDataNascimento(data.dataNascimento());
 
         //Cria um novo cadastro de carro
         Carro carro = new Carro();
@@ -61,17 +59,20 @@ public class ClienteService {
         carro.setMarca(data.marca());
         carro.setPlaca(data.placa());
         carro.setMercosul(Boolean.TRUE.equals(data.mercosul()));
+        carro.setCliente(newCliente);
         carroRepository.save(carro);
 
-        //Criando um novo cadastro de cliente.
-        Cliente newCliente = new Cliente();
-        //Preenchimento dos dados dos cliente.
-        newCliente.setNome(data.nome());
-        newCliente.setTelefone(data.telefone());
-        newCliente.setDataNascimento(data.dataNascimento());
-
-        carro.setCliente(newCliente);
+        //Cria um novo cadastro de usuário
+        Usuario usuario = new Usuario();
+        //Preenche as informações do usuário
+        usuario.setCpf(data.cpf());
+        usuario.setSenha(passwordEncoder.encode(data.senha()));
+        usuario.setConfSenha(passwordEncoder.encode(data.confSenha()));
         usuario.setCliente(newCliente);
+        usuario.setRoles(List.of(
+                getOrCreateRole("Cliente")
+        ));
+        usuarioRepository.save(usuario);
 
         return clienteRepository.save(newCliente);
     }

@@ -1,8 +1,8 @@
 package CardosoLavacao.controller;
 
 import CardosoLavacao.service.CarroService;
-import CardosoLavacao.dto.carro.CarroRequestDTO;
-import CardosoLavacao.dto.carro.CarroResponseDTO;
+import CardosoLavacao.dto.carroCliente.CarroClienteRequestDTO;
+import CardosoLavacao.dto.carroCliente.CarroClienteResponseDTO;
 import CardosoLavacao.model.Carro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,13 +19,13 @@ public class CarroController {
     private CarroService carroService;
 
     @PostMapping(value = "/{id}")
-    public ResponseEntity<CarroResponseDTO> cadastrarCarro (@RequestBody CarroRequestDTO carroRequestDTO){
+    public ResponseEntity<CarroClienteResponseDTO> cadastrarCarro (@RequestBody CarroClienteRequestDTO carroRequestDTO){
         Carro carroCadastrado = carroService.cadastrarCarro(carroRequestDTO);
-        return ResponseEntity.ok(new CarroResponseDTO(carroCadastrado));
+        return ResponseEntity.ok(new CarroClienteResponseDTO(carroCadastrado));
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Carro> atualizarCarro (@PathVariable UUID id,@RequestBody CarroRequestDTO carroRequestDTO){
+    public ResponseEntity<Carro> atualizarCarro (@PathVariable UUID id,@RequestBody CarroClienteRequestDTO carroRequestDTO){
         Carro carroAtualizado = carroService.atualizarCarro(id,carroRequestDTO);
         return ResponseEntity.ok(carroAtualizado);
     }

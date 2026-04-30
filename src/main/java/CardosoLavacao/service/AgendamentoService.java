@@ -29,7 +29,7 @@ public class AgendamentoService {
     @Autowired
     ServicoRepository servicoRepository;
 
-    //Método para validação onde não permite 2 agendamentos no mesmo horário.
+    //Metodo para validação onde não permite 2 agendamentos no mesmo horário.
     public void validaHorario(LocalDateTime dataHoraAgendamento){
 
         if (agendamentoRepository.existsByDataHoraAgendamento(dataHoraAgendamento)){
@@ -37,7 +37,7 @@ public class AgendamentoService {
         }
     }
 
-    //Método para criação de um agendamento
+    //Metodo para criação de um agendamento
     public Agendamento criarAgendamento(AgendamentoRequestDTO data){
         //validação do horário para não permitir criar 2 agendamentos para a mesma hora.
         validaHorario(data.dataHoraAgendamento());

@@ -1,7 +1,7 @@
 package CardosoLavacao.service;
 
+import CardosoLavacao.dto.carroCliente.CarroClienteRequestDTO;
 import CardosoLavacao.repository.CarroRepository;
-import CardosoLavacao.dto.carro.CarroRequestDTO;
 import CardosoLavacao.model.Carro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ public class CarroService {
     @Autowired
     private CarroRepository carroRepository;
 
-    public Carro cadastrarCarro (CarroRequestDTO data){
+    public Carro cadastrarCarro (CarroClienteRequestDTO data){
 
         Carro newCarro = new Carro();
         newCarro.setNomeCarro(data.nome());
@@ -30,11 +30,11 @@ public class CarroService {
     }
 
     public Carro getCarroCliente(UUID clienteId, UUID carroId){
-        return carroRepository.findCarroByIdCliente(carroId, clienteId)
+        return carroRepository.findCarroByIdAndCliente_id(carroId, clienteId)
                 .orElseThrow(() -> new RuntimeException("Carro não encontrado para o cliente!"));
     }
 
-    public Carro atualizarCarro (UUID id, CarroRequestDTO carroRequestDTO) {
+    public Carro atualizarCarro (UUID id, CarroClienteRequestDTO carroRequestDTO) {
         Carro atualizaCarro = getCarroByID(id);
         atualizaCarro.setNomeCarro(carroRequestDTO.nome());
         atualizaCarro.setMarca(carroRequestDTO.placa());

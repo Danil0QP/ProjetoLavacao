@@ -26,6 +26,7 @@ public class SecurityConfig {
                         .requestMatchers("/error").permitAll()
                         .requestMatchers("/cliente/**").permitAll()
                         .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/marcas/**", "/modelos/**", "/clientes/*/carros/**").permitAll()
                         .requestMatchers("/error").permitAll()
                         .requestMatchers("/agendamento/**").hasAuthority("ADMIN")
                         .requestMatchers("/cliente/*/agendamento/**").hasAuthority("CLIENTE")

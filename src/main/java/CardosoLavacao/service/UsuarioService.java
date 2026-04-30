@@ -7,6 +7,7 @@ import CardosoLavacao.repository.UsuarioRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -34,7 +35,7 @@ public class UsuarioService {
        usuario.setSenha(passwordEncoder.encode(senha));
        usuario.setConfSenha(passwordEncoder.encode(senha));
        usuario.setConfSenha(passwordEncoder.encode(senha));
-       usuario.setRoles(List.of(roleAdmin));
+       usuario.setRoles(new ArrayList<>(List.of(roleAdmin)));
 
        return usuarioRepository.save(usuario);
 
