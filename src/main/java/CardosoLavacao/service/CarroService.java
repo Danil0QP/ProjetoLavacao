@@ -37,7 +37,7 @@ public class CarroService {
     public Carro atualizarCarro (UUID id, CarroClienteRequestDTO carroRequestDTO) {
         Carro atualizaCarro = getCarroByID(id);
         atualizaCarro.setNomeCarro(carroRequestDTO.nome());
-        atualizaCarro.setMarca(carroRequestDTO.placa());
+        atualizaCarro.setMarca(carroRequestDTO.marca());
         atualizaCarro.setMercosul(carroRequestDTO.mercosul());
 
         return carroRepository.save(atualizaCarro);

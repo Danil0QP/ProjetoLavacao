@@ -4,6 +4,7 @@ import CardosoLavacao.service.ClienteService;
 import CardosoLavacao.dto.cliente.ClienteRequestDTO;
 import CardosoLavacao.dto.cliente.ClienteResponseDTO;
 import CardosoLavacao.model.Cliente;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class ClienteController {
 
 
     @PostMapping(value = "/criar-cliente")
-    public ResponseEntity<ClienteResponseDTO> criarCliente (@RequestBody ClienteRequestDTO clienteRequestDTO){
+    public ResponseEntity<ClienteResponseDTO> criarCliente (@Valid @RequestBody ClienteRequestDTO clienteRequestDTO){
         Cliente clienteCriado = clienteService.criarCliente(clienteRequestDTO);
         return ResponseEntity.ok(new ClienteResponseDTO(clienteCriado));
     }

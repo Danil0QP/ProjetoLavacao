@@ -25,7 +25,7 @@ public class CarroClienteService {
         this.modeloCarroService = modeloCarroService;
     }
 
-    public CarroCliente criar(UUID clienteId, @Valid @org.jetbrains.annotations.UnknownNullability CarroClienteRequestDTO dto) {
+    public CarroCliente criar(UUID clienteId, @Valid CarroClienteRequestDTO dto) {
         Cliente cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
 
@@ -43,8 +43,6 @@ public class CarroClienteService {
         carro.setModelo(modelo);
         carro.setPlaca(dto.placa().toUpperCase());
         carro.setMercosul(dto.mercosul());
-        carro.setAnoFabricacao(dto.anoFabricacao());
-        carro.setCor(dto.cor());
         return carroClienteRepository.save(carro);
     }
 
