@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/Agendamento")
+@RequestMapping("/agendamento")
 @Controller
 public class AgendamentoController {
     @Autowired

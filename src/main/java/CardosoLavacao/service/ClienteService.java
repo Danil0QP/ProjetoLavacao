@@ -21,7 +21,7 @@ import java.util.UUID;
 @Service
 public class ClienteService {
 
-    private static final String ROLE_CLIENTE = "CLIENTE";
+    private static final String ROLE_CLIENTE = "Cliente";
 
     @Autowired
     private ClienteRepository clienteRepository;
