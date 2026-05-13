@@ -16,6 +16,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/agendamento")
 @Controller
+
 public class AgendamentoController {
     @Autowired
     private AgendamentoService agendamentoService;
@@ -41,8 +42,8 @@ public class AgendamentoController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/listaAgendamentos")
-    public ResponseEntity<List<AgendamentoResponseDTO>> listarTodosAgendamentos(UUID id){
-        List<AgendamentoResponseDTO> listaTodos = agendamentoService.listarAgendamento(id);
+    public ResponseEntity<List<AgendamentoResponseDTO>> listarTodosAgendamentos(){
+        List<AgendamentoResponseDTO> listaTodos = agendamentoService.listarTodosAgendamentos();
         return ResponseEntity.ok(listaTodos);
     }
 

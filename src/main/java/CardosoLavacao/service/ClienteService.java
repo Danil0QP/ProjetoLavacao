@@ -21,7 +21,7 @@ import java.util.UUID;
 @Service
 public class ClienteService {
 
-    private static final String ROLE_CLIENTE = "Cliente";
+    private static final String ROLE_CLIENTE = "CLIENTE";
 
     @Autowired
     private ClienteRepository clienteRepository;
@@ -70,7 +70,7 @@ public class ClienteService {
         usuario.setConfSenha(passwordEncoder.encode(data.confSenha()));
         usuario.setCliente(newCliente);
         usuario.setRoles(List.of(
-                getOrCreateRole("Cliente")
+                getOrCreateRole("CLIENTE")
         ));
         usuarioRepository.save(usuario);
 
