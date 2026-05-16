@@ -40,7 +40,7 @@ public class AuthController {
             );
         }catch (BadCredentialsException ex) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).
-                    body(new LoginResponseDTO(false, "CPF ou Senha inválidos", request.cpf(), null));
+                    body(new LoginResponseDTO(false, "CPF ou Senha inválidos", null, null));
         }
     }
 }

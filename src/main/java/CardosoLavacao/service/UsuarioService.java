@@ -27,13 +27,16 @@ public class UsuarioService {
    }
 
    public Usuario criarUsuario (String cpf, String senha){
+
+       if (usuarioRepository.findByCpf(cpf).isPresent()) {
+           throw new IllegalArgumentException("Já existe usuário com este CPF");
+       }
        Role roleAdmin = roleRepository.findByNome("ADMIN")
                .orElseThrow(() -> new RuntimeException("Admin não encontrado!"));
 
        Usuario usuario = new Usuario();
        usuario.setCpf(cpf);
        usuario.setSenha(passwordEncoder.encode(senha));
-       usuario.setConfSenha(passwordEncoder.encode(senha));
        usuario.setConfSenha(passwordEncoder.encode(senha));
        usuario.setRoles(new ArrayList<>(List.of(roleAdmin)));
 

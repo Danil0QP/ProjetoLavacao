@@ -1,10 +1,8 @@
 package CardosoLavacao.service;
 
 import CardosoLavacao.Exceptions.Cliente.ClienteException;
-import CardosoLavacao.model.Carro;
 import CardosoLavacao.model.Role;
 import CardosoLavacao.model.Usuario;
-import CardosoLavacao.repository.CarroRepository;
 import CardosoLavacao.repository.ClienteRepository;
 import CardosoLavacao.dto.cliente.ClienteRequestDTO;
 import CardosoLavacao.model.Cliente;
@@ -43,6 +41,9 @@ public class ClienteService {
 
         if(data.senha() == null || !data.senha().equals(data.confSenha())) {
             throw new ClienteException("Senha e confirmação de senha não são iguais!");
+        }
+        if (usuarioRepository.findByCpf(data.cpf()).isPresent()) {
+            throw new ClienteException("Já existe um usuário cadastrado com este CPF.");
         }
 
         //Criando um novo cadastro de cliente.

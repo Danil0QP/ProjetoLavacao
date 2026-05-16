@@ -31,7 +31,7 @@ public class CarroClienteService {
 
         ModeloCarro modelo = modeloCarroService.buscarPorId(dto.modeloId());
         if (!modelo.isAtivo()) {
-            throw new RuntimeException("Modelo inativo");
+            throw new RuntimeException("Carro inativo");
         }
 
         carroClienteRepository.findByPlaca(dto.placa()).ifPresent(c -> {
@@ -46,7 +46,19 @@ public class CarroClienteService {
         return carroClienteRepository.save(carro);
     }
 
-    public List<CarroCliente> listarPorCliente(UUID clienteId) {
+    public List<CarroCliente> listarPorCliente(UUID clienteId, @Valid CarroClienteRequestDTO dto) {
+        Cliente cliente = clienteRepository.findById(clienteId)
+                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+
+        ModeloCarro modelo = modeloCarroService.buscarPorId(dto.modeloId());
+        if (!modelo.isAtivo()) {
+            throw new RuntimeException("Carro desativado");
+        }
+
         return carroClienteRepository.findByClienteId(clienteId);
+    }
+
+    public CarroCliente buscarCarroCliente(UUID clienteId, UUID carroId) {
+
     }
 }

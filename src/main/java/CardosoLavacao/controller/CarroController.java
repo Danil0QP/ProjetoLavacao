@@ -1,8 +1,6 @@
 package CardosoLavacao.controller;
 
-import CardosoLavacao.service.CarroService;
 import CardosoLavacao.dto.carroCliente.CarroClienteRequestDTO;
-import CardosoLavacao.model.Carro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -20,11 +20,6 @@ public class CarroCliente {
     @Column(nullable = false)
     private boolean mercosul = true;
 
-    private Integer anoFabricacao;
-
-    @Column(length = 40)
-    private String cor;
-
     @ManyToOne(optional = false)
     @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;

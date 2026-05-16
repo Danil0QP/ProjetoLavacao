@@ -8,6 +8,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface CarroClienteRepository extends JpaRepository<CarroCliente, UUID> {
+
     Optional<CarroCliente> findByPlaca(String placa);
+
     List<CarroCliente> findByClienteId(UUID clienteId);
 }

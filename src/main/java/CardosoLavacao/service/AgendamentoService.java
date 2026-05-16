@@ -4,7 +4,6 @@ import CardosoLavacao.dto.agendamento.AgendamentoRequestDTO;
 import CardosoLavacao.dto.agendamento.AgendamentoResponseDTO;
 import CardosoLavacao.model.*;
 import CardosoLavacao.repository.AgendamentoRepository;
-import CardosoLavacao.repository.CarroRepository;
 import CardosoLavacao.repository.ClienteRepository;
 import CardosoLavacao.repository.ServicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
