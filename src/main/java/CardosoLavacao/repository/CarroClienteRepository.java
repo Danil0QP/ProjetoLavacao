@@ -9,7 +9,11 @@ import java.util.UUID;
 
 public interface CarroClienteRepository extends JpaRepository<CarroCliente, UUID> {
 
+    Optional<CarroCliente> findCarroById(UUID id);
+
     Optional<CarroCliente> findByPlaca(String placa);
 
     List<CarroCliente> findByClienteId(UUID clienteId);
+
+    Optional<CarroCliente> findByPlacaAndClienteId(String placa, UUID clienteId);
 }

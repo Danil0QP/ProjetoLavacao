@@ -1,8 +1,10 @@
 package CardosoLavacao.model;
 
+import CardosoLavacao.dto.carroCliente.CarroClienteResponseDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -27,4 +29,9 @@ public class CarroCliente {
     @ManyToOne(optional = false)
     @JoinColumn(name = "modelo_id", nullable = false)
     private ModeloCarro modelo;
+
+    @OneToMany(mappedBy = "carro")
+    private List<Agendamento> agendamentos;
+
+
 }

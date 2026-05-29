@@ -21,6 +21,7 @@ public class CarroClienteController {
         this.carroClienteService = carroClienteService;
     }
 
+
     @PostMapping
     public ResponseEntity<CarroClienteResponseDTO> criar(@PathVariable UUID clienteId,
                                                          @Valid @RequestBody CarroClienteRequestDTO dto) {
@@ -29,7 +30,8 @@ public class CarroClienteController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CarroClienteResponseDTO>> listarPorCliente(@PathVariable UUID clienteId) {
-        return ResponseEntity.ok(carroClienteService.listarPorCliente(clienteId).stream().map(CarroClienteResponseDTO::new).toList());
+    public ResponseEntity<List<CarroClienteResponseDTO>> listarCarroPorCliente (@PathVariable UUID clienteId,
+                                                                                @RequestParam String placa) {
+        return ResponseEntity.ok(carroClienteService.listarPorCliente(clienteId, placa));
     }
 }

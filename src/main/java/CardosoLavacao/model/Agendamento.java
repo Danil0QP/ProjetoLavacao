@@ -29,7 +29,7 @@ public class Agendamento {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_carro", nullable = false)
-    private Carro carro;
+    private CarroCliente carro;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_servico",  nullable = false)

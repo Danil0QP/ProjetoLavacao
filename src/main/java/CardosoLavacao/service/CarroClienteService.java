@@ -1,6 +1,7 @@
 package CardosoLavacao.service;
 
 import CardosoLavacao.dto.carroCliente.CarroClienteRequestDTO;
+import CardosoLavacao.dto.carroCliente.CarroClienteResponseDTO;
 import CardosoLavacao.model.CarroCliente;
 import CardosoLavacao.model.Cliente;
 import CardosoLavacao.model.ModeloCarro;
@@ -46,19 +47,18 @@ public class CarroClienteService {
         return carroClienteRepository.save(carro);
     }
 
-    public List<CarroCliente> listarPorCliente(UUID clienteId, @Valid CarroClienteRequestDTO dto) {
-        Cliente cliente = clienteRepository.findById(clienteId)
-                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+    public List<CarroClienteResponseDTO> listarPorCliente(UUID clienteId, String placa) {
+        CarroCliente carroCliente = carroClienteRepository.findByPlacaAndClienteId(placa, clienteId)
+                .orElseThrow(() -> new RuntimeException("Carro não encontrado!"));
 
-        ModeloCarro modelo = modeloCarroService.buscarPorId(dto.modeloId());
-        if (!modelo.isAtivo()) {
-            throw new RuntimeException("Carro desativado");
-        }
-
-        return carroClienteRepository.findByClienteId(clienteId);
-    }
-
-    public CarroCliente buscarCarroCliente(UUID clienteId, UUID carroId) {
-
+        return List.of (new CarroClienteResponseDTO(carroCliente));
     }
 }
+
+
+
+
+
+
+
+

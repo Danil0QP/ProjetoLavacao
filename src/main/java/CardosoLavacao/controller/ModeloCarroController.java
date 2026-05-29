@@ -27,7 +27,7 @@ public class ModeloCarroController {
         return ResponseEntity.ok(new ModeloCarroResponseDTO(modelo));
     }
 
-    @GetMapping
+    @GetMapping(value = "/carros")
     public ResponseEntity<List<ModeloCarroResponseDTO>> listarPorMarca(@RequestParam UUID marcaId) {
         return ResponseEntity.ok(modeloCarroService.listarPorMarca(marcaId).stream().map(ModeloCarroResponseDTO::new).toList());
     }

@@ -1,5 +1,6 @@
 package CardosoLavacao.dto.carroCliente;
 
+import CardosoLavacao.dto.agendamento.AgendamentoRequestDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -11,4 +12,5 @@ public record CarroClienteRequestDTO(
         String marca,
         String nome,
         @NotNull UUID modeloId
+
 ) {}

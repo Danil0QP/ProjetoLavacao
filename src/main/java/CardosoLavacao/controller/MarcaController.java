@@ -26,7 +26,7 @@ public class MarcaController {
         return ResponseEntity.ok(new MarcaResponseDTO(marca));
     }
 
-    @GetMapping
+    @GetMapping(value = "/lista-marca")
     public ResponseEntity<List<MarcaResponseDTO>> listarAtivas() {
         return ResponseEntity.ok(marcaService.listarAtivas().stream().map(MarcaResponseDTO::new).toList());
     }

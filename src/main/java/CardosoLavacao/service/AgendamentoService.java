@@ -4,6 +4,7 @@ import CardosoLavacao.dto.agendamento.AgendamentoRequestDTO;
 import CardosoLavacao.dto.agendamento.AgendamentoResponseDTO;
 import CardosoLavacao.model.*;
 import CardosoLavacao.repository.AgendamentoRepository;
+import CardosoLavacao.repository.CarroClienteRepository;
 import CardosoLavacao.repository.ClienteRepository;
 import CardosoLavacao.repository.ServicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class AgendamentoService {
     private AgendamentoRepository agendamentoRepository;
 
     @Autowired
-    private CarroRepository carroRepository;
+    private CarroClienteRepository carroRepository;
 
     @Autowired
     private ClienteRepository clienteRepository;
@@ -43,7 +44,7 @@ public class AgendamentoService {
         //Criando um novo agendamento.
         Agendamento newAgendamento = new Agendamento();
         //Preencimento com os dados do agendamento.
-        Carro carro = carroRepository.findCarroById(data.carroId())
+        CarroCliente carro = carroRepository.findCarroById(data.carroId())
                 .orElseThrow(() -> new RuntimeException("Carro não encontrado!"));
         Servico servico = servicoRepository.findById(data.servicoId())
                 .orElseThrow(() -> new RuntimeException("Serviço não encontrado"));
@@ -71,7 +72,7 @@ public class AgendamentoService {
 
     public Agendamento atualizarAgendamento(UUID id, AgendamentoRequestDTO agendamentoRequestDTO){
         Agendamento atualizaAgendamento = buscarAgendamento(id);
-        Carro carro = carroRepository.findCarroById(agendamentoRequestDTO.carroId())
+        CarroCliente carro = carroRepository.findCarroById(agendamentoRequestDTO.carroId())
                 .orElseThrow(() -> new RuntimeException("Carro não encontrado!"));
         Servico servico = servicoRepository.findById(agendamentoRequestDTO.servicoId())
                 .orElseThrow(() -> new RuntimeException("Serviço não encontrado!"));

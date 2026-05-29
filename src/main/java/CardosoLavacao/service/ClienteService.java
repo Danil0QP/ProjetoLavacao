@@ -1,8 +1,10 @@
 package CardosoLavacao.service;
 
 import CardosoLavacao.Exceptions.Cliente.ClienteException;
+import CardosoLavacao.model.CarroCliente;
 import CardosoLavacao.model.Role;
 import CardosoLavacao.model.Usuario;
+import CardosoLavacao.repository.CarroClienteRepository;
 import CardosoLavacao.repository.ClienteRepository;
 import CardosoLavacao.dto.cliente.ClienteRequestDTO;
 import CardosoLavacao.model.Cliente;
@@ -28,7 +30,7 @@ public class ClienteService {
     private UsuarioRepository usuarioRepository;
 
     @Autowired
-    private CarroRepository carroRepository;
+    private CarroClienteRepository carroRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -54,10 +56,8 @@ public class ClienteService {
         newCliente.setDataNascimento(data.dataNascimento());
 
         //Cria um novo cadastro de carro
-        Carro carro = new Carro();
+        CarroCliente carro = new CarroCliente();
         //Preenche as informações do carro
-        carro.setNomeCarro(data.nomeCarro());
-        carro.setMarca(data.marca());
         carro.setPlaca(data.placa());
         carro.setMercosul(Boolean.TRUE.equals(data.mercosul()));
         carro.setCliente(newCliente);

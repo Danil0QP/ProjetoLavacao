@@ -20,7 +20,7 @@ public class Cliente {
     private LocalDate dataNascimento;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-    private List<Carro> carros = new ArrayList<>();
+    private List<CarroCliente> carros = new ArrayList<>();
 
 
 }
