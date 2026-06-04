@@ -30,7 +30,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.OPTIONS).permitAll()
                         .requestMatchers(HttpMethod.POST, "/cliente/criar-cliente").permitAll()
                         .requestMatchers("/auth/**", "/error").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/marcas/**", "/lista-marca" ,"/modelos/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/marcas/**", "/lista-marca" ,"/modelos/**", "/carros").permitAll()
                         .requestMatchers(HttpMethod.POST, "/marcas/**", "/modelos/**").hasRole("ADMIN")
                         .requestMatchers("/cliente/**").hasRole("ADMIN")
                         .requestMatchers("/error").permitAll()
