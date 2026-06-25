@@ -10,4 +10,5 @@ import java.util.UUID;
 public interface ModeloCarroRepository extends JpaRepository<ModeloCarro, UUID> {
     List<ModeloCarro> findByMarcaIdAndAtivoTrueOrderByNomeAsc(UUID marcaId);
     List<ModeloCarro> findByNomeTrueOrderByNomeAsc();
+    List<ModeloCarro> findByAtivoTrueOrderByNomeAsc();
 }

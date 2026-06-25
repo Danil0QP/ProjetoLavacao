@@ -27,8 +27,18 @@ public class ModeloCarroController {
         return ResponseEntity.ok(new ModeloCarroResponseDTO(modelo));
     }
 
-    @GetMapping(value = "/carros")
-    public ResponseEntity<List<ModeloCarroResponseDTO>> listarPorMarca(@RequestParam UUID marcaId) {
-        return ResponseEntity.ok(modeloCarroService.listarPorMarca(marcaId).stream().map(ModeloCarroResponseDTO::new).toList());
+    @GetMapping
+    public ResponseEntity<List<ModeloCarroResponseDTO>> listar(@RequestParam(required = false) UUID marcaId) {
+        List<ModeloCarro> modelos = marcaId == null
+                ? modeloCarroService.listarAtivos()
+                : modeloCarroService.listarPorMarca(marcaId);
+        return ResponseEntity.ok(modelos.stream().map(ModeloCarroResponseDTO::new).toList());
     }
+
+
+
+//    @GetMapping(value = "/carros")
+//    public ResponseEntity<List<ModeloCarroResponseDTO>> listarPorMarca(@RequestParam UUID marcaId) {
+//        return ResponseEntity.ok(modeloCarroService.listarPorMarca(marcaId).stream().map(ModeloCarroResponseDTO::new).toList());
+//    }
 }

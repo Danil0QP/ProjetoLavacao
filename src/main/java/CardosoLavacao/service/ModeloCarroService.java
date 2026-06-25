@@ -29,8 +29,8 @@ public class ModeloCarroService {
         return modeloCarroRepository.save(modelo);
     }
 
-    public List<ModeloCarro> listarPorNome(){
-        return modeloCarroRepository.findByNomeTrueOrderByNomeAsc();
+    public List<ModeloCarro> listarAtivos(){
+        return modeloCarroRepository.findByAtivoTrueOrderByNomeAsc();
     }
 
     public List<ModeloCarro> listarPorMarca(UUID marcaId) {
