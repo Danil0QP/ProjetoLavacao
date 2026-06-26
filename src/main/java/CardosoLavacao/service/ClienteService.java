@@ -1,15 +1,9 @@
 package CardosoLavacao.service;
 
 import CardosoLavacao.Exceptions.Cliente.ClienteException;
-import CardosoLavacao.model.CarroCliente;
-import CardosoLavacao.model.Role;
-import CardosoLavacao.model.Usuario;
-import CardosoLavacao.repository.CarroClienteRepository;
-import CardosoLavacao.repository.ClienteRepository;
+import CardosoLavacao.model.*;
+import CardosoLavacao.repository.*;
 import CardosoLavacao.dto.cliente.ClienteRequestDTO;
-import CardosoLavacao.model.Cliente;
-import CardosoLavacao.repository.RoleRepository;
-import CardosoLavacao.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,6 +25,9 @@ public class ClienteService {
 
     @Autowired
     private CarroClienteRepository carroRepository;
+
+    @Autowired
+    private ModeloCarroRepository modeloCarroRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -55,12 +52,28 @@ public class ClienteService {
         newCliente.setTelefone(data.telefone());
         newCliente.setDataNascimento(data.dataNascimento());
 
+        String placaAtualizada = data.placa().toUpperCase();
+        carroRepository.findByPlaca(placaAtualizada).ifPresent(c -> {
+            throw new ClienteException("Placa já existente!");
+        });
+
+        ModeloCarro modeloCarro = modeloCarroRepository.findByMarcaNomeIgnoreCaseAndNomeIgnoreCase(
+                data.marca(), data.nomeCarro()).orElseThrow(
+                        () -> new ClienteException("Modelo de carro não encontrado para a marca informada."));
+
+        if (!modeloCarro.isAtivo()){
+            throw new ClienteException("Modelo de carro inativo!");
+        }
+
+        Cliente clienteSalvo = clienteRepository.save(newCliente);
+
         //Cria um novo cadastro de carro
         CarroCliente carro = new CarroCliente();
         //Preenche as informações do carro
-        carro.setPlaca(data.placa());
+        carro.setPlaca(placaAtualizada);
         carro.setMercosul(Boolean.TRUE.equals(data.mercosul()));
-        carro.setCliente(newCliente);
+        carro.setCliente(clienteSalvo);
+        carro.setModelo(modeloCarro);
         carroRepository.save(carro);
 
         //Cria um novo cadastro de usuário
@@ -69,13 +82,13 @@ public class ClienteService {
         usuario.setCpf(data.cpf());
         usuario.setSenha(passwordEncoder.encode(data.senha()));
         usuario.setConfSenha(passwordEncoder.encode(data.confSenha()));
-        usuario.setCliente(newCliente);
+        usuario.setCliente(clienteSalvo);
         usuario.setRoles(List.of(
-                getOrCreateRole("CLIENTE")
+                getOrCreateRole("ROLE_CLIENTE")
         ));
         usuarioRepository.save(usuario);
 
-        return clienteRepository.save(newCliente);
+        return clienteSalvo;
     }
 
     private Role getOrCreateRole(String nomeRole) {
