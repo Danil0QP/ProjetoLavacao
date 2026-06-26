@@ -19,7 +19,7 @@ public class Cliente {
     private String telefone;
     private LocalDate dataNascimento;
 
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CarroCliente> carros = new ArrayList<>();
 
 
